@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plano Estratégico - Widya Digital</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb; /* Blue for titles and elements */
+            --primary-light: #3b82f6;
+            --accent-blue: #60a5fa;
+            --bg-light: #f8fafc;
+            --bg-card: #ffffff;
+            --text-primary: #000000; /* All text is black */
+            --text-secondary: #000000;
+            --text-tertiary: #000000;
+            --border-color: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-light);
+            color: var(--text-primary);
+            line-height: 1.5;
+            min-height: 100vh;
+            padding: 2rem 1rem;
+        }
+
+        .container { max-width: 1100px; margin: 0 auto; }
+
+        /* HEADER */
+        .header { text-align: center; margin-bottom: 2.5rem; }
+        .header h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--primary); /* Blue Title */
+            margin-bottom: 0.3rem;
+        }
+        .header p { color: var(--text-secondary); font-size: 0.95rem; font-weight: 500; }
+
+        /* KPI GRID */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+        }
+        .kpi-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+        }
+        .kpi-card:hover { border-color: var(--primary); transform: translateY(-3px); }
+        .kpi-label { font-size: 0.75rem; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.4rem; font-weight: 700; }
+        .kpi-value { font-size: 1.6rem; font-weight: 700; color: var(--primary); } /* Blue element */
+        .kpi-sub { font-size: 0.8rem; color: var(--text-tertiary); margin-top: 0.2rem; }
+
+        /* SECTIONS */
+        .section { margin-bottom: 2.5rem; }
+        .section-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--primary); /* Blue Section Title */
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 0.6rem;
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        .section-title::before { content: ''; width: 4px; height: 14px; background: var(--primary); border-radius: 2px; }
+
+        /* CANVAS */
+        .canvas-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1rem; }
+        .canvas-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 1rem;
+            box-shadow: var(--shadow);
+        }
+        .canvas-label { font-size: 0.65rem; text-transform: uppercase; color: var(--primary); font-weight: 800; margin-bottom: 0.6rem; display: block; }
+        .tag-group { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+        .tag { background: #eff6ff; border: 1px solid #dbeafe; color: var(--primary); padding: 0.2rem 0.6rem; border-radius: 15px; font-size: 0.75rem; font-weight: 600; }
+
+        /* CHART CONTAINERS */
+        .chart-row { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 1.5rem; }
+        .chart-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 1.5rem;
+            position: relative;
+            height: 360px;
+            box-shadow: var(--shadow);
+        }
+        .chart-title { font-size: 0.8rem; font-weight: 700; color: var(--primary); margin-bottom: 1rem; text-align: center; } /* Blue Chart Title */
+
+        /* BADGES */
+        .badge { display: inline-block; padding: 0.15rem 0.5rem; border-radius: 12px; font-size: 0.7rem; font-weight: 700; margin-right: 0.3rem; }
+        .badge-blue { background: #dbeafe; color: #1e40af; }
+        .badge-teal { background: #f1f5f9; color: #000000; border: 1px solid #dbeafe; }
+        .badge-purple { background: var(--primary); color: #ffffff; }
+        .badge-amber { background: #fef3c7; color: #92400e; }
+        .badge-coral { background: #fee2e2; color: #991b1b; }
+
+        /* ICP CARDS */
+        .icp-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+        .icp-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.2rem; box-shadow: var(--shadow); }
+        .icp-header { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1rem; }
+        .avatar { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary); }
+        .icp-name { font-size: 0.95rem; font-weight: 800; color: var(--primary); } /* Blue ICP Name */
+        .kpi-row { display: flex; justify-content: space-between; padding: 0.4rem 0; border-bottom: 1px solid var(--border-color); font-size: 0.8rem; }
+        .kpi-row:last-child { border-bottom: none; }
+        .kpi-val { font-weight: 700; color: var(--primary); }
+
+        /* PRODUCT CARDS */
+        .prod-list { display: flex; flex-direction: column; gap: 1rem; }
+        .prod-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--primary);
+            border-radius: 8px;
+            padding: 1.2rem;
+            box-shadow: var(--shadow);
+        }
+        .prod-header { display: flex; justify-content: space-between; margin-bottom: 1rem; }
+        .prod-title { font-size: 1rem; font-weight: 800; color: var(--primary); } /* Blue Product Title */
+        .prod-subtitle { font-size: 0.8rem; color: var(--text-primary); font-weight: 500; }
+        .prod-price { text-align: right; font-size: 1.1rem; font-weight: 800; color: var(--primary); }
+        .prod-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; font-size: 0.75rem; }
+        .prod-spec-title { font-weight: 700; margin-bottom: 0.2rem; color: var(--primary); }
+        .prod-spec-desc { color: var(--text-primary); }
+
+        /* PROCESS GRID */
+        .proc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+        .proc-col-title { font-size: 0.8rem; font-weight: 800; color: var(--primary); margin-bottom: 1rem; }
+        .step { display: flex; gap: 0.8rem; margin-bottom: 0.8rem; font-size: 0.8rem; }
+        .step-num { width: 22px; height: 22px; border-radius: 50%; background: var(--primary); color: white; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.75rem; flex-shrink: 0; }
+
+        /* ORGANOGRAMA */
+        .org-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+        .org-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 10px; padding: 1rem; box-shadow: var(--shadow); }
+        .phase-header { background: var(--primary); border-radius: 6px; padding: 0.4rem 0.8rem; font-size: 0.75rem; font-weight: 700; color: #ffffff; margin-bottom: 0.8rem; text-align: center; }
+        .org-box { background: #f1f5f9; border: 1px solid var(--border-color); border-radius: 6px; padding: 0.6rem; margin-bottom: 0.5rem; text-align: center; }
+        .org-box-title { font-size: 0.8rem; font-weight: 700; color: var(--primary); }
+        .org-box-sub { font-size: 0.7rem; color: var(--text-primary); }
+
+        /* TABLE */
+        .table-wrap { overflow-x: auto; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 10px; box-shadow: var(--shadow); }
+        table { width: 100%; border-collapse: collapse; font-size: 0.75rem; }
+        th { background: #eff6ff; padding: 0.8rem; text-align: left; color: var(--primary); border-bottom: 2px solid var(--primary); font-weight: 800; }
+        td { padding: 0.8rem; border-bottom: 1px solid var(--border-color); color: var(--text-primary); font-weight: 500; }
+        .highlight-row { background: #dbeafe; font-weight: 700; }
+        .past-month { color: #94a3b8 !important; opacity: 0.7; }
+        .past-month td { color: #94a3b8 !important; }
+        .past-month .badge { opacity: 0.5; filter: grayscale(1); }
+
+        /* INDICADORES POR PRODUTO */
+        .prod-indicators { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+        .ind-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 10px; padding: 1.5rem; box-shadow: var(--shadow); }
+        .ind-header { font-size: 0.95rem; font-weight: 800; margin-bottom: 1.2rem; padding-bottom: 0.8rem; border-bottom: 2px solid var(--primary); color: var(--primary); }
+        .ind-row { display: flex; justify-content: space-between; padding: 0.6rem 0; font-size: 0.8rem; border-bottom: 1px solid var(--border-color); }
+        .ind-row:last-child { border-bottom: none; }
+        .ind-label { color: var(--text-primary); font-weight: 500; }
+        .ind-value { font-weight: 800; color: var(--primary); }
+
+        @media (max-width: 768px) {
+            .kpi-grid, .canvas-grid, .icp-grid, .org-grid, .prod-indicators, .proc-grid, .prod-grid, .chart-row { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>Plano Estratégico - Widya Digital</h1>
+        <p>Planejamento Geral Negócio</p>
+    </div>
+
+    <!-- KPIs TOPO -->
+    <div class="kpi-grid">
+        <div class="kpi-card">
+            <div class="kpi-label">Faturamento médio mensal atual</div>
+            <div class="kpi-value">R$ 15.000</div>
+            <div class="kpi-sub">Desempenho Base</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label">Margem de Lucro Atual</div>
+            <div class="kpi-value">82%</div>
+            <div class="kpi-sub">Alta Eficiência</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label">Faturamento Ano Meta</div>
+            <div class="kpi-value">R$ 908k</div>
+            <div class="kpi-sub">Projeção 12 meses</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label">Faturamento Mês Meta</div>
+            <div class="kpi-value">R$ 75,6k</div>
+            <div class="kpi-sub">Objetivo Mensal</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label">Margem Lucro Meta</div>
+            <div class="kpi-value">55%</div>
+            <div class="kpi-sub">Escala com Estrutura</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label">Lucro Líquido Meta/mês</div>
+            <div class="kpi-value">R$ 40,8k</div>
+            <div class="kpi-sub">Meta Final</div>
+        </div>
+    </div>
+
+    <!-- SEÇÃO 1: CANVAS -->
+    <div class="section">
+        <div class="section-title">1 — Canvas modelo de negócio</div>
+        <div class="canvas-grid">
+            <div class="canvas-card">
+                <span class="canvas-label">Proposta de Valor</span>
+                <div class="tag-group">
+                    <span class="tag">Ajudar Escalar e Agregar na Operação para profissionalizar (Expert‑Colab)</span>
+                    <span class="tag">Trazer Clareza e Acelerar Resultados com Método e acompanhamento (Mentoria)</span>
+                    <span class="tag">Ajudar experts iniciantes de forma acessível (Expert10x)</span>
+                </div>
+            </div>
+            <div class="canvas-card">
+                <span class="canvas-label">Segmentos de Clientes</span>
+                <div class="tag-group">
+                    <span class="tag">Infoprodutores</span>
+                    <span class="tag">Produtores de conteúdos digitais</span>
+                    <span class="tag">Profissionais liberais com produto</span>
+                    <span class="tag">Empreendedores</span>
+                </div>
+            </div>
+            <div class="canvas-card">
+                <span class="canvas-label">Canais</span>
+                <div class="tag-group">
+                    <span class="tag">Instagram Orgânico + Social Selling</span>
+                    <span class="tag">Tráfego Pago</span>
+                    <span class="tag">Prospecção ativa Instagram</span>
+                    <span class="tag">Indicação</span>
+                    <span class="tag">Parcerias</span>
+                    <span class="tag">Eventos Presenciais</span>
+                </div>
+            </div>
+        </div>
+        <div class="canvas-grid">
+            <div class="canvas-card">
+                <span class="canvas-label">Relacionamento</span>
+                <div class="tag-group">
+                    <span class="tag">Redes sociais</span>
+                    <span class="tag">Reuniões</span>
+                    <span class="tag">WhatsApp</span>
+                    <span class="tag">Eventos Presenciais</span>
+                </div>
+            </div>
+            <div class="canvas-card">
+                <span class="canvas-label">Fontes de Receita</span>
+                <div class="tag-group">
+                    <span class="tag">Mentoria MSE (caixa)</span>
+                    <span class="tag">Expert‑Colab (LTV)</span>
+                    <span class="tag">Expert10x (Escala)</span>
+                    <span class="tag">Outros (Entrada -> Pagar Crescimento)</span>
+                </div>
+            </div>
+            <div class="canvas-card">
+                <span class="canvas-label">Recursos-Chave</span>
+                <div class="tag-group">
+                    <span class="tag">Autoridade do César</span>
+                    <span class="tag">Metodologia Widya</span>
+                    <span class="tag">Funil comercial e Oferta Validada</span>
+                    <span class="tag">Processos de Entrega</span>
+                    <span class="tag">Pessoas Qualificadas</span>
+                </div>
+            </div>
+        </div>
+        <div class="canvas-grid">
+            <div class="canvas-card">
+                <span class="canvas-label">Atividades-chave</span>
+                <div class="tag-group">
+                    <span class="tag">Produzir Conteúdo</span>
+                    <span class="tag">Vender</span>
+                    <span class="tag">Gerir Time</span>
+                    <span class="tag">Gestão Administrativa</span>
+                    <span class="tag">Ir a Eventos e Podcasts</span>
+                    <span class="tag">Analisar Indicadores e Tomar decisoes</span>
+                    <span class="tag">Criar estratégias</span>
+                    <span class="tag">Criar e ajustar ofertas</span>
+                    <span class="tag">Desenvolver parcerias</span>
+                </div>
+            </div>
+            <div class="canvas-card">
+                <span class="canvas-label">Parcerias-Chave</span>
+                <div class="tag-group">
+                    <span class="tag">Gestores de tráfego, Design, Etc.</span>
+                    <span class="tag">Experts Mentores</span>
+                    <span class="tag">Plataformas parceiras</span>
+                </div>
+            </div>
+            <div class="canvas-card">
+                <span class="canvas-label">Estrutura de Custos</span>
+                <div class="tag-group">
+                    <span class="tag">Tráfego Pago</span>
+                    <span class="tag">Time</span>
+                    <span class="tag">Ferramentas</span>
+                    <span class="tag">Equipamentos</span>
+                    <span class="tag">Eventos Presenciais</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- GRÁFICOS DE PIZZA -->
+        <h3 style="margin: 2rem 0 1rem; color: var(--primary); font-size: 1.1rem; text-align: center; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;">Previsões Financeiras com Faturamento de 75.000</h3>
+        <div class="chart-row">
+            <div class="chart-container">
+                <div class="chart-title">Visão Fontes de Receita</div>
+                <canvas id="revenueChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <div class="chart-title">Visão Estrutura de Custos</div>
+                <canvas id="costsChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- SEÇÃO 2: ICPs -->
+    <div class="section">
+        <div class="section-title">2 — Público-alvo geral e 3 personas (ICP)</div>
+        <div class="icp-grid">
+            <div class="icp-card">
+                <div class="icp-header">
+                    <img class="avatar" src="file:///Users/cesarjunior/.gemini/antigravity/brain/97b901fb-51ea-4553-b0d1-e61492e145d1/avatar_expert_1_1775696512520.png" alt="EX">
+                    <div>
+                        <div class="icp-name">Expert em início</div>
+                        <span class="badge badge-blue">MSE / Expert10x</span>
+                    </div>
+                </div>
+                <div class="kpi-row"><span>Faturamento</span><span class="kpi-val">R$15k–60k/mês</span></div>
+                <div class="kpi-row"><span>Estrutura</span><span class="kpi-val">Solo ou micro-time</span></div>
+                <div class="kpi-row"><span>Decisor</span><span class="kpi-val">O próprio expert</span></div>
+                <div class="kpi-row"><span>Idade</span><span class="kpi-val">25–38 anos</span></div>
+                <p style="font-size: 0.75rem; color: var(--text-primary); margin-top: 0.8rem; font-weight: 500;">Principal dor: receita em pico-e-vale, sem funil estruturado e dependente de indicações.</p>
+            </div>
+            <div class="icp-card">
+                <div class="icp-header">
+                    <img class="avatar" src="file:///Users/cesarjunior/.gemini/antigravity/brain/97b901fb-51ea-4553-b0d1-e61492e145d1/avatar_expert_2_1775696534945.png" alt="PR">
+                    <div>
+                        <div class="icp-name">Expert consolidado</div>
+                        <span class="badge badge-teal">MSE / Colab</span>
+                    </div>
+                </div>
+                <div class="kpi-row"><span>Faturamento</span><span class="kpi-val">R$60k–200k/mês</span></div>
+                <div class="kpi-row"><span>Estrutura</span><span class="kpi-val">Time de 3–10 pessoas</span></div>
+                <div class="kpi-row"><span>Decisor</span><span class="kpi-val">Founder / Head Mkt</span></div>
+                <div class="kpi-row"><span>Idade</span><span class="kpi-val">30–45 anos</span></div>
+                <p style="font-size: 0.75rem; color: var(--text-primary); margin-top: 0.8rem; font-weight: 500;">Principal dor: founder preso na operação, sem escalar; quer delegar e ter previsibilidade.</p>
+            </div>
+            <div class="icp-card">
+                <div class="icp-header">
+                    <img class="avatar" src="file:///Users/cesarjunior/.gemini/antigravity/brain/97b901fb-51ea-4553-b0d1-e61492e145d1/avatar_expert_3_1775696559252.png" alt="EM">
+                    <div>
+                        <div class="icp-name">Empresário digital</div>
+                        <span class="badge badge-purple">Expert-Colab</span>
+                    </div>
+                </div>
+                <div class="kpi-row"><span>Faturamento</span><span class="kpi-val">R$40k–500k/mês</span></div>
+                <div class="kpi-row"><span>Estrutura</span><span class="kpi-val">3–50 colaboradores</span></div>
+                <div class="kpi-row"><span>Decisor</span><span class="kpi-val">CEO / Head Mkt</span></div>
+                <div class="kpi-row"><span>Idade</span><span class="kpi-val">28–45 anos</span></div>
+                <p style="font-size: 0.75rem; color: var(--text-tertiary); margin-top: 0.8rem;">Principal dor: funil inexistente ou quebrado, atendimento manual e sem automação.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SEÇÃO 3: PRODUTOS -->
+    <div class="section">
+        <div class="section-title">3 — Detalhamento dos produtos</div>
+        <div class="prod-list">
+            <div class="prod-card" style="border-left-color: var(--primary-light);">
+                <div class="prod-header">
+                    <div>
+                        <div class="prod-title">Expert10x — mentoria em grupo</div>
+                        <div class="prod-subtitle">Carro-chefe de volume e escala | 8h mensais de entrega | Vendas via WhatsApp</div>
+                    </div>
+                    <div class="prod-price">R$ 3.000</div>
+                </div>
+                <div class="prod-grid">
+                    <div><div class="prod-spec-title">Entregáveis</div><div class="prod-spec-desc">6 sessões em grupo + WhatsApp + playbooks</div></div>
+                    <div><div class="prod-spec-title">Prazo</div><div class="prod-spec-desc">3 meses | Garantia 7 dias</div></div>
+                    <div><div class="prod-spec-title">ICP</div><div class="prod-spec-desc">Expert em início (ICP 1)</div></div>
+                </div>
+            </div>
+            <div class="prod-card" style="border-left-color: var(--primary);">
+                <div class="prod-header">
+                    <div>
+                        <div class="prod-title">Mentoria MSE — Scale Expert individual</div>
+                        <div class="prod-subtitle">Injeção de caixa high-ticket | 2h/cliente/mês | máx 22 mentorados</div>
+                    </div>
+                    <div class="prod-price">R$ 18.000 / R$ 12.000 <div style="font-size: 0.7rem; color: var(--text-tertiary);">Anual / Semestral</div></div>
+                </div>
+                <div class="prod-grid">
+                    <div><div class="prod-spec-title">Entregáveis</div><div class="prod-spec-desc">Diagnóstico + Estratégia completa + Consultoria de Social Selling e Marketing de Conteúdo + 6-12 sessões de acompanhamento + WhatsApp + Playbooks + Pacote Ferramentas IA para posts, página, copys, edição, artes.</div></div>
+                    <div><div class="prod-spec-title">Prazo</div><div class="prod-spec-desc">6 a 12 meses | Garantia 90 dias</div></div>
+                    <div><div class="prod-spec-title">ICP</div><div class="prod-spec-desc">Expert consolidado (ICP 2 e 3)</div></div>
+                </div>
+            </div>
+            <div class="prod-card" style="border-left-color: var(--accent-blue);">
+                <div class="prod-header">
+                    <div>
+                        <div class="prod-title">Expert-Colab — parceria estratégica premium</div>
+                        <div class="prod-subtitle">Modelo boutique | máx 4 projetos por ano | 2h/semana/projeto</div>
+                    </div>
+                    <div class="prod-price">R$ 50.000 / R$ 30.000 <div style="font-size: 0.7rem; color: var(--text-tertiary);">Anual / Semestral</div></div>
+                </div>
+                <div class="prod-grid">
+                    <div><div class="prod-spec-title">Entregáveis</div><div class="prod-spec-desc">Diagnóstico + Estratégia + Planejamento + execução do funil (tráfego + copy + edição videos + artes + ferramentas de automacoes + 2 reuniões mensais</div></div>
+                    <div><div class="prod-spec-title">Prazo</div><div class="prod-spec-desc">6 a 12 meses | Garantia 90 dias</div></div>
+                    <div><div class="prod-spec-title">ICP</div><div class="prod-spec-desc">Empresário digital (ICP 2 e 3)</div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SEÇÃO 4: PROCESSO -->
+    <div class="section">
+        <div class="section-title">4 — Processo ponta a ponta</div>
+        <div class="proc-grid">
+            <div>
+                <div class="proc-col-title">Marketing & Vendas</div>
+                <div class="step"><div class="step-num">1</div><div><strong>Atração</strong> — conteúdo orgânico (IA), tráfego pago, prospecção ativa.</div></div>
+                <div class="step"><div class="step-num">2</div><div><strong>Lead</strong> — captura via forms / link bio / DM.</div></div>
+                <div class="step"><div class="step-num">3</div><div><strong>MQL</strong> — qualificação rigorosa (produto, resultado, budget).</div></div>
+                <div class="step"><div class="step-num">4</div><div><strong>Diagnóstico</strong> — reunião para entender dor, sonho e contexto.</div></div>
+                <div class="step"><div class="step-num">5</div><div><strong>Proposta</strong> — produto ideal + condição de fechamento.</div></div>
+                <div class="step"><div class="step-num">6</div><div><strong>Fechamento</strong> — contrato + financeiro + NF.</div></div>
+            </div>
+            <div>
+                <div class="proc-col-title">Entrega & Retenção</div>
+                <div class="step"><div class="step-num">7</div><div><strong>Onboarding</strong> — kickoff, plano de ação, acesso a ferramentas.</div></div>
+                <div class="step"><div class="step-num">8</div><div><strong>Entrega</strong> — sessões MSE, execução Colab ou grupo Expert10x.</div></div>
+                <div class="step"><div class="step-num">9</div><div><strong>Acompanhamento</strong> — WhatsApp, indicadores, otimizações.</div></div>
+                <div class="step"><div class="step-num">10</div><div><strong>Upsell</strong> — upgrade de plano ou renovação contratual.</div></div>
+                <div class="step"><div class="step-num">11</div><div><strong>Indicação</strong> — programa de parceiros, depoimento/case.</div></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SEÇÃO 5: ORGANOGRAMA -->
+    <div class="section">
+        <div class="section-title">5 — Organograma (timing de contratação)</div>
+        <div class="org-grid">
+            <div class="org-card">
+                <div class="phase-header">Fase 1 — até R$30k/mês</div>
+                <div class="org-box"><div class="org-box-title">César (founder)</div><div class="org-box-sub">Estratégia · Vendas · Entrega</div></div>
+                <div class="org-box"><div class="org-box-title">Assistente op./comercial</div><div class="org-box-sub">Meio período — R$1,5k</div></div>
+                <div class="org-box"><div class="org-box-title">Gestor de tráfego Junior</div><div class="org-box-sub">R$1,5k</div></div>
+                <div class="org-box"><div class="org-box-title">Terceirizados</div><div class="org-box-sub">Vídeo · Arte — R$1,5k</div></div>
+            </div>
+            <div class="org-card">
+                <div class="phase-header">Fase 2 — R$40k–60k/mês</div>
+                <div class="org-box"><div class="org-box-title">Estrategista</div><div class="org-box-sub">Full time — R$4k</div></div>
+                <div class="org-box"><div class="org-box-title">Gestor de tráfego</div><div class="org-box-sub">Por cliente — R$1,5k</div></div>
+                <div class="org-box"><div class="org-box-title">Assistentes (2)</div><div class="org-box-sub">Comercial + Op — R$3k</div></div>
+                <div class="org-box"><div class="org-box-title">Terceirizados</div><div class="org-box-sub">Vídeo · Arte · Páginas</div></div>
+            </div>
+            <div class="org-card">
+                <div class="phase-header">Fase 3 — R$100k+/mês</div>
+                <div class="org-box"><div class="org-box-title">Time Full Time</div><div class="org-box-sub">Estrategista + Tráfego Pleno/Sênior</div></div>
+                <div class="org-box"><div class="org-box-title">Comercial</div><div class="org-box-sub">SDR + Closer (por call)</div></div>
+                <div class="org-box"><div class="org-box-title">Operacional</div><div class="org-box-sub">Suporte/Atendimento + Edição + Gest. Projetos</div></div>
+                <div class="org-box"><div class="org-box-title">Terceirizados</div><div class="org-box-sub">Arte · Páginas</div></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SEÇÃO 6: RECEITA PROJETADA -->
+    <div class="section">
+        <div class="section-title">6 — Meta total e receita projetada (mensal)</div>
+        <div style="height: 250px; background: rgba(255,255,255,0.01); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.5rem;">
+            <canvas id="monthlyRevenueChart"></canvas>
+        </div>
+    </div>
+
+    <!-- SEÇÃO 7: PLANEJAMENTO -->
+    <div class="section">
+        <div class="section-title">7 — Planejamento mês a mês (jan → dez)</div>
+        <div class="table-wrap">
+            <table id="monthTable">
+                <thead>
+                    <tr>
+                        <th>Mês</th>
+                        <th>Fase</th>
+                        <th>Tráfego R$</th>
+                        <th>Prospec.</th>
+                        <th>Posts (César / Widya)</th>
+                        <th>Reuniões</th>
+                        <th>Vendas Expert10x</th>
+                        <th>Vendas MSE</th>
+                        <th>Vendas Colab</th>
+                        <th>Receita Total</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- SEÇÃO 8: INDICADORES POR PRODUTO -->
+    <div class="section">
+        <div class="section-title">8 — Indicadores por produto</div>
+        <div class="prod-indicators">
+            <!-- Expert10x -->
+            <div class="ind-card">
+                <div class="ind-header" style="color: var(--primary);">Expert10x</div>
+                <div class="ind-row"><span class="ind-label">CPL</span><span class="ind-value">≤ R$41</span></div>
+                <div class="ind-row"><span class="ind-label">MQL</span><span class="ind-value">≤ R$83</span></div>
+                <div class="ind-row"><span class="ind-label">Custo Reunião</span><span class="ind-value">≤ R$166</span></div>
+                <div class="ind-row"><span class="ind-label">Ticket Médio</span><span class="ind-value">R$3k</span></div>
+                <div class="ind-row"><span class="ind-label">CAC Máximo</span><span class="ind-value">≤ R$750</span></div>
+                <div class="ind-row"><span class="ind-label">% Custos</span><span class="ind-value">5%</span></div>
+                <div class="ind-row"><span class="ind-label">% Margem Lib.</span><span class="ind-value">95%</span></div>
+                <div class="ind-row"><span class="ind-label">Margem Fin.</span><span class="ind-value">R$2.850</span></div>
+                <div class="ind-row"><span class="ind-label">Horas Entrega</span><span class="ind-value">8h/mês (Fixo)</span></div>
+                <div class="ind-row"><span class="ind-label">Ganho por Hora</span><span class="ind-value">R$3.750/h (Turma 30)</span></div>
+                <div class="ind-row"><span class="ind-label">LTV Mínimo</span><span class="ind-value">3 meses</span></div>
+                <div class="ind-row"><span class="ind-label">Churn</span><span class="ind-value">≤ 5%</span></div>
+            </div>
+
+            <!-- Mentoria MSE -->
+            <div class="ind-card">
+                <div class="ind-header" style="color: var(--primary-light);">Mentoria MSE</div>
+                <div class="ind-row"><span class="ind-label">CPL</span><span class="ind-value">≤ R$104</span></div>
+                <div class="ind-row"><span class="ind-label">MQL</span><span class="ind-value">≤ R$208</span></div>
+                <div class="ind-row"><span class="ind-label">Custo Reunião</span><span class="ind-value">≤ R$416</span></div>
+                <div class="ind-row"><span class="ind-label">Ticket Médio</span><span class="ind-value">R$15k</span></div>
+                <div class="ind-row"><span class="ind-label">CAC Máximo</span><span class="ind-value">≤ R$3.750</span></div>
+                <div class="ind-row"><span class="ind-label">% Custos</span><span class="ind-value">10%</span></div>
+                <div class="ind-row"><span class="ind-label">% Margem Lib.</span><span class="ind-value">90%</span></div>
+                <div class="ind-row"><span class="ind-label">Margem Fin.</span><span class="ind-value">R$13.500</span></div>
+                <div class="ind-row"><span class="ind-label">Horas Entrega</span><span class="ind-value">18h (Total)</span></div>
+                <div class="ind-row"><span class="ind-label">Ganho por Hora</span><span class="ind-value">R$750/h</span></div>
+                <div class="ind-row"><span class="ind-label">LTV Mínimo</span><span class="ind-value">6 meses</span></div>
+                <div class="ind-row"><span class="ind-label">Churn</span><span class="ind-value">≤ 5%</span></div>
+            </div>
+
+            <!-- Expert-Colab -->
+            <div class="ind-card">
+                <div class="ind-header" style="color: var(--accent-dark-blue);">Expert-Colab</div>
+                <div class="ind-row"><span class="ind-label">CPL</span><span class="ind-value">≤ R$208</span></div>
+                <div class="ind-row"><span class="ind-label">MQL</span><span class="ind-value">≤ R$416</span></div>
+                <div class="ind-row"><span class="ind-label">Custo Reunião</span><span class="ind-value">≤ R$833</span></div>
+                <div class="ind-row"><span class="ind-label">Ticket Médio</span><span class="ind-value">R$30k</span></div>
+                <div class="ind-row"><span class="ind-label">CAC Máximo</span><span class="ind-value">≤ R$7.500</span></div>
+                <div class="ind-row"><span class="ind-label">% Custos</span><span class="ind-value">20%</span></div>
+                <div class="ind-row"><span class="ind-label">% Margem Lib.</span><span class="ind-value">80%</span></div>
+                <div class="ind-row"><span class="ind-label">Margem Fin.</span><span class="ind-value">R$24.000</span></div>
+                <div class="ind-row"><span class="ind-label">Horas Entrega</span><span class="ind-value">64h (Total)</span></div>
+                <div class="ind-row"><span class="ind-label">Ganho por Hora</span><span class="ind-value">R$375/h</span></div>
+                <div class="ind-row"><span class="ind-label">LTV Mínimo</span><span class="ind-value">6 meses</span></div>
+                <div class="ind-row"><span class="ind-label">Churn</span><span class="ind-value">≤ 5%</span></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+<script>
+// GRÁFICO DE PIZZA - RECEITA
+new Chart(document.getElementById('revenueChart'), {
+    type: 'doughnut',
+    plugins: [ChartDataLabels],
+    data: {
+        labels: ['(R$ 21.000) Expert10x', '(R$ 24.000) MSE', '(R$ 16.666) Colab Fixo', '(R$ 14.000) Colab Var'],
+        datasets: [{
+            data: [21000, 24000, 16666, 14000],
+            backgroundColor: ['#1e40af', '#2563eb', '#3b82f6', '#60a5fa'],
+            borderColor: '#ffffff',
+            borderWidth: 2
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        layout: { padding: 25 },
+        plugins: {
+            legend: { position: 'left', labels: { color: '#000000', font: { size: 10, weight: '700' }, boxWidth: 10, padding: 10 } },
+            datalabels: {
+                color: '#ffffff',
+                font: { weight: 'bold', size: 11 },
+                formatter: (value, ctx) => {
+                    let sum = 0;
+                    let dataArr = ctx.chart.data.datasets[0].data;
+                    dataArr.map(data => { sum += data; });
+                    return (value*100 / sum).toFixed(0) + "%";
+                }
+            }
+        }
+    }
+});
+
+// GRÁFICO DE PIZZA - CUSTOS
+new Chart(document.getElementById('costsChart'), {
+    type: 'doughnut',
+    plugins: [ChartDataLabels],
+    data: {
+        labels: ['(R$ 15.750) Marketing e Vendas', '(R$ 7.500) Equipe', '(R$ 7.500) Imposto', '(R$ 3.000) Admin e ferramentas', '(R$ 41.250) Lucro'],
+        datasets: [{
+            data: [21, 10, 10, 4, 55], // Marketing 21%, Lucro 55%
+            backgroundColor: ['#1e40af', '#2563eb', '#3b82f6', '#60a5fa', '#10b981'],
+            borderColor: '#ffffff',
+            borderWidth: 2
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        layout: { padding: 25 },
+        plugins: {
+            legend: { position: 'left', labels: { color: '#000000', font: { size: 10, weight: '700' }, boxWidth: 10, padding: 10 } },
+            datalabels: {
+                color: '#ffffff',
+                font: { weight: 'bold', size: 11 },
+                formatter: (value, ctx) => {
+                    let sum = 0;
+                    let dataArr = ctx.chart.data.datasets[0].data;
+                    dataArr.map(data => { sum += data; });
+                    return (value*100 / sum).toFixed(0) + "%";
+                }
+            }
+        }
+    }
+});
+
+// TABELA MÊS A MÊS
+const months=['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+const trafego=[1000, 1000, 1000, 2000, 3000, 4500, 6750, 10125, 13162, 17111, 22244, 26693];
+const prosp=[400, 0, 400, 600, 600, 600, 600, 600, 600, 600, 600, 600];
+const posts=['30/0','10/0','0/0','40/40','40/40','40/40','40/40','40/40','40/40','40/40','40/40','40/40'];
+const vendas10x=[0, 1, 0, 3, 4, 5, 6, 7, 8, 8, 10, 11];
+const vendasMSE=[0, 0, 0, 1, 1, 1, 2, 2, 2, 2, 2, 2];
+const vendasColab=[3, 2, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0];
+const reun=[10, 5, 0, 15, 24, 21, 30, 39, 36, 42, 42, 45];
+const receita=[20000, 25000, 10000, 24000, 57000, 30000, 48000, 81000, 54000, 84000, 60000, 63000]; // Abr-Jun MSE 1
+const phases=['1','1','1','2','2','2','2','2','3','3','3','3'];
+
+const tbody=document.querySelector('#monthTable tbody');
+months.forEach((m,i)=>{
+    const tr=document.createElement('tr');
+    if(i===11) tr.className='highlight-row';
+    if(i < 3) tr.classList.add('past-month');
+    tr.innerHTML=`<td>${m}</td><td><span class="badge ${phases[i]==='1'?'badge-teal':phases[i]==='2'?'badge-blue':'badge-purple'}">Fase ${phases[i]}</span></td><td>R$${trafego[i].toLocaleString()}</td><td>${prosp[i]}</td><td>${posts[i]}</td><td>${reun[i]}</td><td>${vendas10x[i]}</td><td>${vendasMSE[i]}</td><td>${vendasColab[i]}</td><td>R$${receita[i].toLocaleString()}</td>`;
+    tbody.appendChild(tr);
+});
+
+// GRÁFICO DE BARRAS - RECEITA MENSAL
+new Chart(document.getElementById('monthlyRevenueChart'), {
+    type: 'bar',
+    data: {
+        labels: months,
+        datasets: [
+            { label: 'MSE', data: Array(12).fill(24000), backgroundColor: '#1e3a8a', stack: 's' },
+            { label: 'Colab Fixo', data: Array(12).fill(16666), backgroundColor: '#2563eb', stack: 's' },
+            { label: 'Expert10x', data: [5000, 8000, 12000, 15000, 18000, 20000, 22000, 24000, 25000, 25000, 25000, 25000], backgroundColor: '#3b82f6', stack: 's' },
+            { label: 'Colab Var', data: [0, 1000, 2000, 3000, 4000, 5000, 6000, 7500, 8500, 9500, 10000, 10000], backgroundColor: '#60a5fa', stack: 's' }
+        ]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: true, position: 'top', labels: { color: '#000000', boxWidth: 12, font: { size: 10, weight: '700' } } } },
+        scales: {
+            x: { stacked: true, grid: { display: false }, ticks: { color: '#000000', font: { size: 9, weight: '600' } } },
+            y: { stacked: true, grid: { color: 'rgba(37, 99, 235, 0.1)' }, ticks: { color: '#000000', font: { size: 9, weight: '600' }, callback: v => 'R$' + (v / 1000) + 'k' } }
+        }
+    }
+});
+</script>
+</body>
+</html>
